@@ -6,7 +6,7 @@
 <section class="panel" id="loginPanel"><h2>เข้าสู่ระบบผู้ดูแล</h2><form id="loginForm"><label>อีเมล</label><input id="email" type="email" autocomplete="username" required><label>รหัสผ่าน</label><input id="password" type="password" autocomplete="current-password" required><button class="primary" type="submit">เข้าสู่ระบบ</button><p id="loginMsg" class="small"></p></form></section>
 <section class="panel hidden" id="adminPanel"><div class="row"><h2>จัดการรีวิว</h2><button id="logout">ออกจากระบบ</button></div><p id="adminMsg" class="small"></p><div id="items"></div></section>
 <script>
-const SUPABASE_URL="https://awepsxaicyrukyjeprbm.supabase.co/rest/v1/";
+const SUPABASE_URL="https://awepsxaicy rukyjeprbm.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_YQQ8J0PPCHVmHcmwZ-Nvwg_A7fd6bIe";
 const configured=SUPABASE_URL.startsWith("https://")&&SUPABASE_ANON_KEY.startsWith("sb_publishable_");
 const db=configured?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
