@@ -8,7 +8,7 @@
 <script>
 const SUPABASE_URL="https://awepsxaicyrukyjeprbm.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY="sb_publishable_YQQ8J0PPCHVmHcmwZ-Nvwg_A7fd6bIe";
-const configured=SUPABASE_URL.startsWith("https://")&&!SUPABASE_URL.includes("YOUR_")&&SUPABASE_ANON_KEY.length>20&&!SUPABASE_ANON_KEY.includes("YOUR_");
+const configured=SUPABASE_URL.startsWith("https://")&&SUPABASE_ANON_KEY.startsWith("sb_publishable_");
 const db=configured?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const $=id=>document.getElementById(id);
 if(!db){$("loginMsg").textContent="กรุณาใส่ Supabase Project URL และ anon/public key ในไฟล์ admin.html ก่อน";}
