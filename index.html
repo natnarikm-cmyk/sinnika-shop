@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sinnika Shop | รีวิวจากลูกค้า</title>
+<meta name="description" content="รีวิวและให้คะแนน Sinnika Shop">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--pink:#f8d9e8;--lav:#e8ddff;--purple:#8d6ac8;--ink:#4f4262;--paper:#fffaff;--line:#f0e4f4}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0%,#ffe9f1,transparent 32%),radial-gradient(circle at 90% 10%,#eee5ff,transparent 34%),var(--paper);min-height:100vh}
+.wrap{max-width:900px;margin:auto;padding:22px 15px 60px}.hero,.panel,.review{background:#ffffffd9;border:1px solid var(--line);border-radius:25px;box-shadow:0 10px 35px #9b78b51a}
+.hero{text-align:center;padding:30px 20px;margin:10px 0 18px}.avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid white;background:var(--lav);box-shadow:0 5px 20px #b59ad533}.brand{font-size:clamp(27px,6vw,40px);margin:12px 0 5px;color:#805db5}.sub{margin:0;color:#867697}.links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}.links a{color:#7857ad;background:#f4edff;padding:9px 14px;border-radius:999px;text-decoration:none}
+.panel{padding:20px;margin:16px 0}h2{margin:0 0 14px;color:#805db5}label{display:block;font-weight:650;margin:12px 0 6px}input,textarea,select{width:100%;padding:12px 13px;border:1px solid #e3d5ed;border-radius:13px;background:white;color:var(--ink);font:inherit}textarea{min-height:100px;resize:vertical}.stars{display:flex;gap:7px;flex-wrap:wrap}.star{border:1px solid #e7d9f1;background:white;border-radius:12px;padding:8px 12px;font-size:25px;color:#d2c5dc;cursor:pointer}.star.on{color:#f4b62f;background:#fff8df;border-color:#f6df9a}button{border:0;border-radius:14px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:linear-gradient(100deg,#caa9f6,#f2bcd8);color:#4e356b;width:100%;margin-top:15px}.muted{color:#8d8099;font-size:14px}.summary{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}.big{font-size:30px;font-weight:800}.review{padding:16px;margin:12px 0}.reviewhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.badge{font-size:13px;background:#f4edff;padding:4px 9px;border-radius:99px}.reviewstars{color:#f1b52d;letter-spacing:2px}.review img{max-width:100%;max-height:300px;object-fit:contain;border-radius:14px;margin-top:10px}.thanks{text-align:center;padding:18px;color:#8a6bb5}.empty{text-align:center;padding:20px;color:#9385a1}.foot{text-align:center;font-size:13px;color:#a194ad;margin-top:24px}
+</style></head>
+<body><main class="wrap">
+<header class="hero">
+<img id="shopPhoto" class="avatar" alt="รูปโปรไฟล์ร้าน" src="https://placehold.co/200x200/f0e5ff/8d6ac8?text=Sinnika">
+<h1 class="brand" id="shopName">Sinnika Shop</h1><p class="sub" id="shopMessage">ขอบคุณที่อุดหนุนและแบ่งปันประสบการณ์ให้เรานะคะ ♡</p>
+<div class="links" id="contactLinks"></div>
+</header>
+<section class="panel"><div class="summary"><div class="big" id="avg">—</div><div><div class="reviewstars" id="avgStars">☆☆☆☆☆</div><div class="muted" id="count">กำลังโหลดรีวิว…</div></div></div><h2>รีวิวจากลูกค้า</h2><div id="reviews"><div class="empty">กำลังโหลดรีวิวค่ะ…</div></div></section>
+<section class="panel" id="reviewForm"><h2>เขียนรีวิวให้ร้าน</h2><p class="muted">ชื่อเล่น ชื่อลูกค้า และคะแนนดาวเป็นข้อมูลที่ต้องกรอกค่ะ</p>
+<form id="form">
+<label for="nickname">ชื่อเล่น *</label><input id="nickname" maxlength="40" required>
+<label for="customerName">ชื่อของลูกค้า *</label><input id="customerName" maxlength="80" required>
+<label>ให้คะแนนร้านค้า *</label><div class="stars" id="starPicker" role="radiogroup" aria-label="คะแนนร้านค้า">
+<button class="star" type="button" data-star="1" aria-label="1 ดาว">★</button><button class="star" type="button" data-star="2" aria-label="2 ดาว">★</button><button class="star" type="button" data-star="3" aria-label="3 ดาว">★</button><button class="star" type="button" data-star="4" aria-label="4 ดาว">★</button><button class="star" type="button" data-star="5" aria-label="5 ดาว">★</button></div><input id="stars" type="hidden" required>
+<label for="comment">ความคิดเห็น (ไม่บังคับ)</label><textarea id="comment" maxlength="1200" placeholder="อยากบอกอะไรกับร้าน เขียนได้เลยค่ะ"></textarea>
+<label for="photoUrl">ลิงก์รูปภาพ (ไม่บังคับ)</label><input id="photoUrl" type="url" placeholder="https://..."><p class="muted">เวอร์ชันเริ่มต้นรับลิงก์รูปภาพก่อน ยังไม่ได้เปิดอัปโหลดไฟล์โดยตรง</p>
+<button class="primary" type="submit">ยืนยันการรีวิว</button><p id="formMessage" class="muted" role="status"></p>
+</form></section>
+<div class="thanks" id="thanks">ขอบคุณลูกค้าทุกคนที่เป็นส่วนหนึ่งของ Sinnika Shop ♡</div><div class="foot">Sinnika Shop · พื้นที่รีวิวจากลูกค้า</div>
+</main>
+<script>
+/* ใส่ Project URL และ anon/public key จาก Supabase Settings > API เท่านั้น ห้ามใส่ service_role key */
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const CONFIG = { shopName:"Sinnika Shop", shopPhoto:"", message:"ขอบคุณที่อุดหนุนและแบ่งปันประสบการณ์ให้เรานะคะ ♡", contacts:[/* {label:"ติดต่อร้าน",url:"https://..."} */] };
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && SUPABASE_ANON_KEY.length>20 && !SUPABASE_ANON_KEY.includes("YOUR_");
+const db = configured ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
+document.getElementById("shopName").textContent=CONFIG.shopName;
+document.getElementById("shopMessage").textContent=CONFIG.message;
+if(CONFIG.shopPhoto)document.getElementById("shopPhoto").src=CONFIG.shopPhoto;
+document.getElementById("contactLinks").innerHTML=CONFIG.contacts.map(c=>`<a href="${safeUrl(c.url)}" target="_blank" rel="noopener">${esc(c.label)}</a>`).join("");
+let selected=0;document.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>{selected=Number(b.dataset.star);document.getElementById("stars").value=selected;document.querySelectorAll("[data-star]").forEach(x=>x.classList.toggle("on",Number(x.dataset.star)<=selected));}));
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function safeUrl(v){try{let u=new URL(v);return ["https:","http:"].includes(u.protocol)?u.href:"#"}catch{return "#"}}
+function render(list){const host=document.getElementById("reviews");if(!list.length){host.innerHTML='<div class="empty">ยังไม่มีรีวิวที่เผยแพร่ เป็นคนแรกที่รีวิวได้นะคะ ♡</div>';return;}host.innerHTML=list.map(r=>`<article class="review"><div class="reviewhead"><strong>${esc(r.nickname)}</strong><span class="badge">${esc(r.customer_name)}</span></div><div class="reviewstars" aria-label="${r.stars} จาก 5 ดาว">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>${r.comment?`<p>${esc(r.comment).replace(/\n/g,"<br>")}</p>`:""}${r.photo_url?`<img src="${safeUrl(r.photo_url)}" alt="รูปประกอบรีวิว" loading="lazy" referrerpolicy="no-referrer">`:""}<div class="muted">${r.created_at?new Date(r.created_at).toLocaleDateString("th-TH"):""}</div></article>`).join("");}
+async function load(){if(!db){document.getElementById("reviews").innerHTML='<div class="empty">ตั้งค่า Supabase ในไฟล์ index.html ก่อน จึงจะแสดงรีวิวได้ค่ะ</div>';document.getElementById("count").textContent="ยังไม่ได้เชื่อมฐานข้อมูล";return;}const {data,error}=await db.from("shop_reviews").select("id,nickname,customer_name,stars,comment,photo_url,created_at").eq("status","published").order("created_at",{ascending:false});if(error){document.getElementById("reviews").innerHTML='<div class="empty">โหลดรีวิวไม่สำเร็จ กรุณาตรวจสอบการตั้งค่าฐานข้อมูล</div>';return;}render(data||[]);document.getElementById("count").textContent=`${data.length} รีวิว`;document.getElementById("avg").textContent=data.length?(data.reduce((s,r)=>s+r.stars,0)/data.length).toFixed(1):"—";let a=data.length?Math.round(data.reduce((s,r)=>s+r.stars,0)/data.length):0;document.getElementById("avgStars").textContent="★".repeat(a)+"☆".repeat(5-a);}
+document.getElementById("form").addEventListener("submit",async e=>{e.preventDefault();const msg=document.getElementById("formMessage");if(!selected){msg.textContent="กรุณาเลือกคะแนน 1–5 ดาวค่ะ";return;}if(!db){msg.textContent="ยังไม่ได้เชื่อม Supabase กรุณาตั้งค่าก่อนค่ะ";return;}msg.textContent="กำลังส่งรีวิว…";const row={nickname:document.getElementById("nickname").value.trim(),customer_name:document.getElementById("customerName").value.trim(),stars:selected,comment:document.getElementById("comment").value.trim()||null,photo_url:document.getElementById("photoUrl").value.trim()||null,status:"pending"};const {error}=await db.from("shop_reviews").insert(row);if(error){msg.textContent="ส่งรีวิวไม่สำเร็จ กรุณาลองใหม่อีกครั้งค่ะ";return;}document.getElementById("form").reset();selected=0;document.querySelectorAll("[data-star]").forEach(x=>x.classList.remove("on"));msg.textContent="ส่งรีวิวแล้วค่ะ ขอบคุณมากนะคะ รีวิวจะปรากฏหลังร้านตรวจสอบ ♡";});
+load();
+</script></body></html>
