@@ -1,0 +1,1 @@
+# sinnika-shop
